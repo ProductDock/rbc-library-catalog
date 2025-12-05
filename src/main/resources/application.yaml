@@ -2,13 +2,25 @@ spring:
   cloud:
     gcp:
       sql:
-        database-name: catalog
-        instance-connection-name: ${GCP_SQL_INSTANCE_CONNECTION_NAME}
+        enabled: false
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+
   flyway:
     user: ${MYSQL_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     schemas: catalog
-    url: jdbc:mysql://google/catalog?cloudSqlInstance=${GCP_SQL_INSTANCE_CONNECTION_NAME}&socketFactory=com.google.cloud.sql.mysql.SocketFactory
+    #    url: jdbc:mysql://google/catalog?cloudSqlInstance=${GCP_SQL_INSTANCE_CONNECTION_NAME}&socketFactory=com.google.cloud.sql.mysql.SocketFactory
+    url: ${SPRING_DATASOURCE_URL}
     locations: classpath:db/migration
     baselineOnMigrate: true
   kafka:
@@ -23,10 +35,6 @@ spring:
       book-rating: book-rating
       insert-book: insert-book
       delete-book: delete-book
-
-  jpa:
-    hibernate:
-      ddl-auto: validate
 
 server:
   error:
