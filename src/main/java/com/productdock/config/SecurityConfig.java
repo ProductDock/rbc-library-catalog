@@ -16,7 +16,7 @@ import java.security.interfaces.RSAPublicKey;
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
-    
+
     private static final String ROLE_ADMIN = "SCOPE_ROLE_ADMIN";
 
     @Value("${jwt.public.key}")
@@ -27,6 +27,7 @@ public class SecurityConfig {
         http.authorizeRequests(authorize -> authorize.antMatchers("/actuator/**").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/catalog/books").hasAuthority(ROLE_ADMIN)
                         .antMatchers(HttpMethod.DELETE, "/api/catalog/books/{bookId}").hasAuthority(ROLE_ADMIN)
+                        .antMatchers("/api/catalog/internal/**").permitAll()
                         .anyRequest().authenticated())
                 .cors().and()
                 .oauth2ResourceServer().jwt();

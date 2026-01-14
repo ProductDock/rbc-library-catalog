@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/catalog/books")
+@RequestMapping({"/api/catalog/books", "/api/catalog/internal/books"})
 record GetBookApi(GetBookQuery getBookQuery, GetBookDtoMapper getBookDtoMapper) {
 
     @GetMapping("/{bookId}")

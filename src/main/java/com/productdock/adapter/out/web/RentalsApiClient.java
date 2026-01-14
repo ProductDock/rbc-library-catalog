@@ -27,7 +27,7 @@ public class RentalsApiClient implements RentalsClient {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public RentalsApiClient(@Value("${rental.service.url}/api/rental/book/") String rentalsServiceUrl) {
+    public RentalsApiClient(@Value("${rental.service.url}/api/rental/books/") String rentalsServiceUrl) {
         this.rentalsServiceUrl = rentalsServiceUrl;
     }
 
